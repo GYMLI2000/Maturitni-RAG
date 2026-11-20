@@ -8,12 +8,12 @@ Jedna aplikace pro přípravu k maturitě napříč předměty. Student pracuje 
 
 ## Rozdělení vývoje
 
-| Role | Vlastník | Odpovědnost |
-| --- | --- | --- |
-| Frontend pro studenty | Doplnit | Studentské obrazovky, navigace a napojení na API. |
-| Administrace a import | Doplnit | Redakční rozhraní, administrační API, import a publikování obsahu. |
-| Jádro backendu | Doplnit | Databáze, účty a oprávnění, studentské API, hodnocení a pokrok. |
-| AI a práce s podklady | Doplnit | Zpracování podkladů, RAG, tutor, návrhy studijních výstupů a NotebookLM MCP. |
+| Role | Odpovědnost |
+| --- | --- |
+| Frontend pro studenty | Studentské obrazovky, navigace a napojení na API. |
+| Administrace a import | Redakční rozhraní, administrační API, import a publikování obsahu. |
+| Jádro backendu | Databáze, účty a oprávnění, studentské API, hodnocení a pokrok. |
+| AI a práce s podklady | Zpracování podkladů, RAG, tutor, návrhy studijních výstupů a NotebookLM MCP. |
 
 ### 1. Frontend pro studenty
 
