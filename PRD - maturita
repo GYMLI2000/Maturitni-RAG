@@ -1,0 +1,131 @@
+# PRD — Aplikace pro přípravu k maturitě
+
+**Stav** Pracovní návrh k diskusi · **Datum** 20. listopadu 2026
+
+## 1. Produkt
+
+Student si vybere předměty a maturitní okruhy ze studijního balíčku. Může otevřít konkrétní otázku, pochopit její souvislosti, vyzkoušet se nanečisto a příště procvičit to, v čem chyboval. V jednom účtu a jednom rozhraní má **zkoušení, chat, myšlenkové mapy, kvízy a výukové kartičky**.
+
+Výchozím obsahem je **vlastní banka maturitních otázek a materiálů dodaná týmem**. Otázky, správná řešení, hodnoticí kritéria a zdroje mají evidovaný původ a verzi. Předměty a obory jsou konfigurovatelné. Stejný produkt pokryje všeobecné i odborné předměty podle toho, jaký obsah tým připraví.
+
+**Hlavní hypotéza.** Studenti se vrátí k otázce, kterou předtím nezvládli, když po pokusu dostanou konkrétní zpětnou vazbu, odkaz na studijní podklad a další krátkou úlohu na stejnou dovednost.
+
+## 2. Uživatelé a potřeby
+
+| Uživatel | Potřeba | Co mu produkt poskytne |
+| --- | --- | --- |
+| Maturant | Zjistit, které otázky zvládne před zkouškou samostatně. | Zkoušku nanečisto, přehled procvičených okruhů a zpětnou vazbu po pokusu. |
+| Maturant s krátkým časem na učení | Rychle najít, co dnes procvičit. | Kartičky splatné dnes a nezvládnuté otázky z vybraných předmětů. |
+| Autor obsahu | Přidat a opravit vlastní otázky, řešení a podklady ve větším objemu. | Editor, hromadný import, koncepty a kontrolu před publikací. |
+| Správce obsahu | Udržet správné verze a řídit, kdo který balíček vidí. | Publikování, správu přístupů a dohledatelnou historii změn. |
+
+Obsah pokrývá společnou i profilovou část. Školní balíček může vymezit konkrétní školu, obor a ročník. Tím aplikace respektuje, že témata a formy profilových zkoušek se mohou mezi školami lišit. [CERMAT — maturitní zkouška](https://maturita.cermat.gov.cz/menu/maturitni-zkouska.html)
+
+## 3. Hlavní průchod studenta
+
+1. Student si vybere studijní balíček a předměty. Aplikace mu nabídne první otázku nebo kratší procvičování.
+2. U otázky zvolí **Studovat**, **Vyzkoušet se** nebo **Otevřít mapu**. Ve studijním režimu má k dispozici podklady a chat.
+3. Ve zkoušce nanečisto odpoví bez náhledu do řešení. Podle nastavení se mu zobrazuje jen časomíra, nebo mu aplikace měří čas na pozadí.
+4. Po odevzdání uvidí výsledek, vysvětlení a další krok. U otevřené odpovědi uvidí komentář ke kritériím, u uzavřené vyhodnocení podle uloženého klíče.
+5. Slabé místo se promítne do doporučení k opakování. Student může otevřít citovanou pasáž, procvičit kartičku nebo zkusit další schválenou otázku na stejnou dovednost.
+
+**Příklad.** Student v dějepise zamění dlouhodobou příčinu první světové války se záminkou. Po odevzdání dostane vysvětlení podle připravených kritérií, přejde na příslušnou větev mapy a při dalším učení dostane krátkou otázku ke stejnému rozdílu. V matematice může obdobně procvičit převod jednotek, pokud byl v úloze sledován jako samostatná dovednost. Když máme jen číselný výsledek, aplikace ukáže nesprávný výsledek a nabídne vysvětlení nebo rozbor zadaného postupu.
+
+## 4. Funkční požadavky
+
+**P0** Označuje podmínku pilotu. **P1** Označuje rozšíření po vyhodnocení pilotu.
+
+| Oblast | P0 | P1 |
+| --- | --- | --- |
+| Katalog a výběr | Vyhledání publikovaných balíčků, přidání předmětů do studia a přehled témat a otázek. | Osobní studijní seznam složený z více balíčků a případně z vlastních otázek. |
+| Detail otázky | Zadání, potřebné přílohy, přístup ke studijnímu vysvětlení, chatu, mapě a zkoušení. | Studentské poznámky a záložky na konkrétní pasáže. |
+| Zkouška nanečisto | Výběr nebo los otázky, volitelný časovač, odpověď, odevzdání a rozbor. U ústní přípravy textová odpověď nebo mluvený nácvik se sebehodnocením podle kritérií. | Hlasová simulace s přepisem a dynamickými doplňujícími dotazy. Celé zkouškové sady podle balíčku. |
+| Chat | Odpovídá v kontextu aktivní otázky nebo tématu. Na relevantní tvrzení naváže kliknutelným odkazem na podklad nebo přizná chybějící oporu. | Vysvětlení na jiné úrovni obtížnosti a návazná cvičení podle historie studenta. |
+| Myšlenková mapa | Zobrazení vztahů mezi pojmy a tématy. Uzel může otevřít podklad nebo související otázku. K dispozici je textový seznam vazeb. | Osobní úpravy map, vlastní poznámky a zvýraznění témat k opakování. |
+| Kvíz | Výběr schválených otázek podle tématu. Automatické vyhodnocení uzavřených úloh. Vysvětlení po odevzdání. | Sady cílené podle historie výsledků, rozsáhlejší testy a podpora složených úloh s dílčími body. |
+| Výukové kartičky | Líc a rub, odhalení odpovědi na vyžádání, jednoduché sebehodnocení a plán dalšího opakování. | Kartičky z vlastních podkladů studenta a pokročilejší plánování podle úspěšnosti. |
+| Pokrok | Historie pokusů, naposledy procvičené otázky, přehled pokrytí a seznam témat k opakování. | Plán do data maturity a podrobnější rozpad podle dovedností. |
+| Redakce | Editor předmětů, otázek a podkladů. Hromadný import, jeho náhled, kontrola chyb a publikování schválené verze. | Převod dalších formátů, redakční role po předmětech a sdílení uzavřených balíčků se školami. |
+
+### Pravidla pro zkoušení a zpětnou vazbu
+
+- Los respektuje vybraný balíček, předmět a formu zkoušky. Při malém počtu dostupných otázek může aplikace opakovat dříve použité zadání a uživateli to ukáže.
+- V režimu nanečisto backend před odevzdáním poskytuje pouze zadání a přílohy určené k řešení. Chat, řešení a kartičky s odpovědí jsou dostupné ve studijním režimu nebo po odevzdání.
+- Pro výběr možností, přiřazování, řazení, krátkou odpověď s povolenými variantami a číselný výsledek rozhodují uložená pravidla. Číselná úloha má definovanou jednotku a případnou toleranci. Zadání říká, zda se očekává i postup.
+- U otevřených, ústních a praktických úloh se zpětná vazba váže na připravená kritéria a doložené části odpovědi. Hodnocení od AI se označí jako orientační. Aplikace při nedostatku podkladů nabídne sebehodnocení nebo vzorové řešení, pokud je k dispozici.
+- Opakované odeslání stejného pokusu nesmí přičíst další pokus ani posunout kartičku dvakrát. Historie ukazuje verzi otázky použitou v daném pokusu.
+
+## 5. Obsah a publikační proces
+
+| Entita | Co obsahuje |
+| --- | --- |
+| Balíček | Název, jazyk, volitelný kontext školy, oboru a ročníku, viditelnost a publikovanou verzi. Odkazuje na vybrané předměty a otázky. |
+| Předmět, téma a dovednost | Stabilní identifikátory, popis a vazby. Předmět může mít libovolnou hierarchii témat. Otázka může procvičovat více dovedností nebo témat. |
+| Otázka | Zadání, zkušební formu, způsob odpovědi, potřebné přílohy, řešení nebo kritéria, volitelné vysvětlení a odkazy na podklady. |
+| Podklad | Text, dokument, obrázek, audio nebo odkaz. Má vlastníka, verzi, práva k užití a případný přepis nebo textový popis. |
+| Mapa a kartička | Obsah, původ, vazbu na témata a zdroje a publikační stav. Pokud se změní výchozí zdroj, redakce může odvozený obsah znovu posoudit. |
+| Studijní záznam | Identitu studenta, verzi otázky, výsledek, typ hodnocení a plán opakování. Rozlišuje automaticky vyhodnocený pokus, orientační zpětnou vazbu a sebehodnocení. |
+
+**Tok obsahu** · vložení nebo import → koncept → kontrola → publikace → další verze
+
+- Nový předmět se zakládá v editoru. Publikace balíčku může kombinovat ústní, didaktické, písemné a praktické úlohy.
+- Při importu autor vidí náhled nových a upravených záznamů a chyby u konkrétních položek. Opakovaný import se stejnými identifikátory vytváří předvídatelné aktualizace bez duplicit. Publikování kontroluje odkazy, přístup k přílohám a přítomnost klíče nebo kritérií u úloh nabízených k hodnocení.
+- Koncept otázky může obsahovat jen zadání. Při kontrole se doloží zdroj materiálů a oprávnění k jejich použití. AI může navrhnout mapu, kartičky nebo vysvětlení, které autor zkontroluje před zveřejněním ve sdíleném balíčku.
+- Pro pilota navrhuji editor, jeden hromadný vstup pro strukturovanou banku a nahrávání příloh. Konkrétní vstupní formát se vybere po prohlédnutí reálných podkladů týmu. Text získaný z PDF se dá využít jako podklad pro chat. Převod dokumentu na jednotlivé otázky vyžaduje kontrolu autora.
+
+## 6. RAG, NotebookLM MCP a Agents SDK
+
+### Vlastní RAG
+
+Primární vyhledávání pracuje nad publikovanými verzemi podkladů. Při zpracování dokumentu zachová odkaz na stránku, oddíl nebo časový úsek. Při dotazu použije kontext otázky, balíčku a oprávnění uživatele. Kombinace fulltextu a sémantického hledání je pracovní návrh k ověření na češtině a odborných názvech. Odpověď může studentovi otevřít skutečnou citovanou pasáž.
+
+Banka otázek, klíče, přístupy a pokrok jsou uloženy ve vlastní aplikační databázi. Index RAG lze z publikovaných zdrojů obnovit. Vyhledávání smí pro konkrétní režim pracovat jen s obsahem, ke kterému má uživatel přístup. Tutor používá dokumenty jako studijní podklady. Přístupy, nástroje a chování tutora určuje aplikace.
+
+### NotebookLM MCP
+
+Pro pilot je navržená **interní integrace pro sešity a schválené podklady**. Má ověřit vytvoření sešitu z vybraného tématu, vložení podporovaného zdroje a stav jeho zpracování. Oficiální Gemini Notebook MCP je v Public Preview a vyžaduje přihlášení osobním Google účtem přes OAuth. Dotazy nad sešitem a generování studijních výstupů jsou v roadmapě. Hlavní studijní funkce běží přes aplikační backend a vlastní RAG i při nedostupnosti této integrace. Komunitní konektor lze v interním experimentu použít k porovnání výstupů na vlastních testovacích datech. [Oficiální MCP](https://developers.google.com/notebook/docs/mcp) · [roadmapa Googlu](https://developers.google.com/notebook/docs/roadmap) · [komunitní konektor](https://github.com/jacob-bd/gemini-notebook-mcp-cli)
+
+### Agents SDK
+
+Pracovní volba je **OpenAI Agents SDK pro Python** s licencí MIT. Tutor a generování studijních návrhů dostanou úzce vymezené nástroje, například vyhledání podkladu nebo načtení hodnoticích kritérií. Výstupy pro mapu a kartičky mají definovanou strukturu. Backend ověřuje vazby, spravuje oprávnění a boduje uzavřené otázky. Výběr modelu se rozhodne podle výsledků v češtině, práce se zdroji a ceny za studijní průchod. [Repozitář SDK](https://github.com/openai/openai-agents-python) · [strukturovaný výstup](https://openai.github.io/openai-agents-python/agents/#output-types) · [MCP v SDK](https://openai.github.io/openai-agents-python/mcp/)
+
+## 7. Spolehlivost, soukromí a přístupnost
+
+- **Přístup k datům.** Oprávnění se kontrolují při načtení otázky, přílohy, historie i při vyhledávání pro chat. Výchozí stav pro externí synchronizaci je vypnuto. Do NotebookLM se v pilotu posílají jen schválené podklady.
+- **Data studentů.** Sbírat údaje potřebné pro účet a studijní pokrok. Před veřejným spuštěním určit dobu uchování, způsob smazání účtu, pravidla pro nezletilé a rozsah dat sdílených s poskytovateli AI.
+- **Výpadek.** Při nedostupnosti AI může student otevřít uložené podklady, mapy a kartičky a dokončit kvíz s uloženým klíčem. Rozpracovaná odpověď se dá obnovit. Hodnocení otevřené odpovědi zůstane dostupné k opakovanému vyžádání.
+- **Přístupnost.** Základní studijní tok je použitelný na telefonu i s klávesnicí. Výsledek je srozumitelný i bez barev. Mapa má textovou alternativu. U audia je k dispozici přepis, který se při zkoušce zpřístupní podle pravidel dané úlohy.
+- **Sledování provozu.** Měřit latenci, chybovost, náklady AI a neplatné citace. Pro běžnou diagnostiku používat identifikátory a technické metriky. Text studentských odpovědí má vlastní pravidla přístupu a uchování.
+
+## 8. Pilot a kritéria úspěchu
+
+Pilot má běžet **od začátku na více předmětech**. Návrh vzorku je dějepis, matematika a angličtina nebo odborný předmět podle nejlépe připravených vlastních materiálů. Vzorek má obsahovat alespoň ústní okruh, uzavřený test, výpočet, otevřenou nebo praktickou úlohu a práci s přílohou. Cílem je ověřit přenositelnost napříč formami zkoušení.
+
+| Co ověřujeme | Jak to změříme | Pracovní hranice |
+| --- | --- | --- |
+| První průchod dává studentovi smysl | Podíl studentů, kteří po výběru balíčku během první návštěvy odevzdají otázku nebo kvíz a otevřou výsledek. | Alespoň 60 % účastníků pilotu. |
+| Doporučení vede k opakování | Podíl studentů s chybou, kteří do sedmi dnů dokončí doporučenou otázku nebo opakování kartiček k dané dovednosti. | Alespoň 30 %. Výsledek uvést spolu s velikostí vzorku. |
+| Tutor se opírá o správné podklady | Redakce u sady českých a předmětových dotazů posoudí správnost, oporu tvrzení a situace bez podkladu. | Alespoň 90 % podložených a věcně správných odpovědí u dotazů s dostupnou odpovědí. Žádná vymyšlená citace v kontrolním vzorku. |
+| Hodnocení je reprodukovatelné | Předem připravené příklady správných, chybných a hraničních odpovědí pro každý automaticky hodnocený typ. | Shoda s klíčem ve všech kontrolních případech. |
+| Redakce zvládne nový předmět | Autor bez pomoci vývojáře založí předmět, přidá otázky s přílohou, opraví chybu z importu a publikuje balíček. | Úkol proběhne v editoru bez nasazení nové verze aplikace. |
+
+Vedle toho měřit čas do první odpovědi tutora a cenu za dokončený studijní průchod. Provozní hranice pro latenci a náklady stanovit po prvním srovnávacím měření. Přínos pro učení se dá dál ověřit nezávislou kontrolní otázkou na stejnou dovednost s odstupem několika dnů.
+
+### Kontrolní scénáře před spuštěním pilotu
+
+1. Student projde z otázky na mapu, z mapy do chatu a z výsledku na kartičku. Všechny kroky zachovávají kontext studia.
+2. V režimu nanečisto se řešení neobjeví v datech doručených do prohlížeče. Po odevzdání se zobrazí výsledek a vysvětlení.
+3. Dva studenti s různými oprávněními se stejným dotazem nedostanou citace ani přílohy z balíčku, ke kterému nemají přístup.
+4. Opakovaný import téže dávky nevytvoří duplicity. Úprava publikované otázky zachová původní verzi u dřívějšího výsledku.
+5. Při výpadku modelu i NotebookLM student otevře materiál a dokončí automaticky hodnocený kvíz.
+
+## 9. Pracovní rozhodnutí k potvrzení
+
+| Otázka | Výchozí návrh v tomto PRD |
+| --- | --- |
+| Kdo dostane pilot jako první? | Studenti připravující se na českou maturitu, kteří si vybírají z balíčků připravených týmem. Rozhraní je česky. Školní varianty lze reprezentovat obsahem balíčku. |
+| Mohou studenti přidávat vlastní školní seznamy? | Osobní otázky a nahrávání podkladů studenty jsou kandidáti na P1. Pilot ověří průchod na kurátorované bance. |
+| Jakou platformu a formu ústního zkoušení zvolit? | Responzivní web. V pilotu textová odpověď a mluvený nácvik se sebehodnocením. Hlasový tutor závisí na ověření kvality češtiny, nákladů a zacházení s nahrávkami. |
+| Jaký materiál přijde jako první a jak se importuje? | Vybrat několik skutečných sad od autorů a jejich formát použít k návrhu prvního hromadného vstupu. |
+| Jakou roli má mít NotebookLM po pilotu? | Rozhodnout podle skutečné kvality výstupů a možností oficiálního MCP. V pilotu slouží správě sešitů a zdrojů. |
+| Jak se bude produkt nabízet? | Rozhodnutí mezi přímou nabídkou studentům a nabídkou školám zůstává otevřené. Pilot ověří studijní zážitek a náklady bez závislosti na platbách. |
