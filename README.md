@@ -49,3 +49,62 @@ Jedna aplikace pro přípravu k maturitě napříč předměty. Student pracuje 
 3. **Rozšíření po demu.** Propojí se mapa, kvízy a kartičky se skutečnými tématy a pokrokem studenta. Redakce může studijní výstupy zkontrolovat a zveřejnit.
 
 **První milník je splněný**, když autor přidá novou otázku v administraci a student ji ve stejné aplikaci vyřeší, dostane zpětnou vazbu a vidí další krok k procvičení.
+
+## Web (frontend): Studium
+
+Česká aplikace na přípravu k maturitě: tutor z ověřených podkladů, zkouška nanečisto, kvízy, kartičky a mapa pojmů. Web je převedený z designu `design/MaturitaRAG.pen` (framy 20–39 „· Glass“ a tmavé kopie).
+
+Stack: Next.js 16 (App Router, Cache Components), TypeScript strict, Tailwind CSS v4, Geist, lucide-react, motion, next-themes. Data jsou mock v `lib/mock/*.ts`, backend je jen rozhraní v `lib/api.ts`.
+
+### Spuštění
+
+```bash
+npm install
+npm run dev            # http://localhost:3000
+```
+
+### Route ↔ frame
+
+| Route | Frame |
+|---|---|
+| `/` | 21 Dnes, 25 Mobil · Dnes |
+| `/predmety/[predmet]/otazky/[id]` | 26 Otázka, 36 Mobil · Otázka |
+| `/predmety/[predmet]/otazky/[id]/studium` | 22 Studium + tutor (na mobilu inspektor jako bottom sheet) |
+| `/predmety/[predmet]/otazky/[id]/zkouska` | 27 Zkouška nanečisto, 37 Mobil · Zkouška, 27b Číselná úloha (`matematika/4`) |
+| `/predmety/[predmet]/otazky/[id]/rozbor/[pokus]` | 28 Rozbor, 38 Mobil · Rozbor; `rozbor/2` = stav z 39 |
+| `/predmety/[predmet]/otazky/[id]/mapa` | 29 Mapa pojmů (na mobilu seznam vazeb) |
+| `/kvizy/novy` | 30 Nastavení kvízu |
+| `/kvizy/[id]` | 23 Kvíz → 31 Zpětná vazba |
+| `/karticky` | 32 Líc → 24 Odpověď → 33 Hotovo |
+| `/balicky` | 34 Katalog balíčků (prázdné hledání = stav z 39) |
+| `/redakce/importy/[id]` | 35 Kontrola importu (redakční sidebar) |
+| `/design` | 20 Materiály + 39 Stavy |
+
+Ukázkové adresy: `/predmety/dejepis/otazky/7`, `/kvizy/prvni-svetova-valka`, `/redakce/importy/24`. Výpadek tutora: `/predmety/dejepis/otazky/7/studium?simulace=tutor-nedostupny`.
+
+### Klávesy
+
+- ⌘K / Ctrl+K: hledání
+- Kvíz: A–D vybere odpověď, ↵ potvrdí a pokračuje
+- Kartičky: mezerník otočí, 1–3 ohodnotí
+
+### Struktura
+
+- `app/globals.css`: Tailwind `@theme`, materiály (`glass-thin`, `glass`, `glass-thick`, `surface`, `solid`, `ink`, mesh pozadí a hero), reduced-transparency / contrast / motion
+- `app/tokens.css`: tokeny `:root` / `.dark`, generované z `.pen`
+- `app/(app)`: obrazovky se sidebarem, `app/(focus)`: fokusové obrazovky, `app/(redakce)`: redakční prostor
+- `components/ui`: komponenty z `.pen` (tlačítka, segmenty, čipy, citace, stavy, sheet, OptionRow)
+- `components/*.tsx`: obrazovky (tutor, zkouška, kvíz, kartičky, mapa, katalog, import)
+
+### Skripty a kontroly
+
+```bash
+node scripts/gen-tokens.mjs              # tokeny z design/MaturitaRAG.pen → app/tokens.css
+node scripts/czech-typography.mjs        # nedělitelné mezery za k, s, v, z, o, u, a, i
+node scripts/czech-typography.mjs --check
+node scripts/screenshots.mjs <url> <dir> [route…]   # 1440×900 a 390×844, světlý i tmavý
+npx tsc --noEmit && npm run lint && npm run build
+npx playwright test                      # e2e toky (bez BASE_URL postaví a spustí produkční build)
+```
+
+Rozhodnutí tam, kde design něco neřeší, jsou v [DECISIONS.md](DECISIONS.md).

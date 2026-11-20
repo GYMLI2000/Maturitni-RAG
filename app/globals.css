@@ -1,0 +1,246 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --color-app: var(--app);
+  --color-panel: var(--panel);
+  --color-surface: var(--surface);
+  --color-hover: var(--hover);
+  --color-selected: var(--selected);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-strong: var(--strong);
+  --color-accent: var(--accent);
+  --color-soft: var(--soft);
+  --color-on-fg: var(--on-fg);
+  --color-on-accent: var(--on-accent);
+  --color-ring: var(--ring);
+  --color-ring-strong: var(--ring-strong);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-error: var(--error);
+  --color-error-soft: var(--error-soft);
+  --color-grid: var(--grid);
+  --color-axis: var(--axis);
+  --color-glass-shadow: var(--glass-shadow);
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+  body {
+    background: var(--bg-d);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    /* pen.dev renders text without an explicit line height at ~1.31 (13 → 17px, 32 → 42px). */
+    line-height: 1.31;
+    letter-spacing: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  button:not(:disabled), [role="button"], a[href], label[for], summary {
+    cursor: pointer;
+  }
+  kbd {
+    font-family: inherit;
+  }
+}
+
+@layer components {
+  /* App background: the 3×3 mesh from the .pen frames, as soft radial blobs on a fixed layer. */
+  .mesh-app {
+    background:
+      radial-gradient(60% 55% at 50% 0%, var(--bg-b), transparent 70%),
+      radial-gradient(45% 60% at 100% 50%, var(--bg-b), transparent 70%),
+      radial-gradient(45% 60% at 0% 50%, var(--bg-c), transparent 70%),
+      radial-gradient(55% 45% at 50% 100%, var(--bg-e), transparent 70%),
+      radial-gradient(40% 40% at 100% 0%, var(--bg-a), transparent 70%),
+      radial-gradient(40% 40% at 0% 100%, var(--bg-a), transparent 70%),
+      var(--bg-d);
+  }
+
+  /* Hero: mesh hero-d → hero-a → hero-b → hero-c (3×2 in the .pen). */
+  .mesh-hero {
+    background:
+      radial-gradient(70% 90% at 100% 100%, var(--hero-c), transparent 70%),
+      radial-gradient(60% 80% at 0% 0%, var(--hero-d), transparent 75%),
+      radial-gradient(60% 90% at 50% 100%, var(--hero-b), transparent 70%),
+      radial-gradient(50% 80% at 100% 0%, var(--hero-b), transparent 75%),
+      var(--hero-a);
+  }
+
+  /* Liquid glass. Belongs to chrome only (navigation, bars, controls). */
+  .glass,
+  .glass-thin,
+  .glass-thick {
+    --g-fill: var(--glass);
+    --g-blur: 28px;
+    --g-y: 10px;
+    --g-b: 28px;
+    position: relative;
+    background: linear-gradient(to bottom, var(--glass-sheen), transparent 55%), var(--g-fill);
+    -webkit-backdrop-filter: blur(var(--g-blur)) saturate(180%);
+    backdrop-filter: blur(var(--g-blur)) saturate(180%);
+    box-shadow:
+      inset 0 1px 0 var(--glass-shine),
+      0 1px 2px var(--glass-shadow-near),
+      0 var(--g-y) var(--g-b) var(--glass-shadow);
+  }
+  .glass-thin {
+    --g-blur: 16px;
+    --g-y: 4px;
+    --g-b: 12px;
+  }
+  .glass-thick {
+    --g-fill: var(--glass-thick);
+    --g-blur: 40px;
+    --g-y: 16px;
+    --g-b: 40px;
+  }
+  /* Glass laid over the blue hero mesh. */
+  .glass-on-hero {
+    --g-fill: #ffffff26;
+    /* No saturation boost: it would turn the blue hero behind into a solid accent. */
+    -webkit-backdrop-filter: blur(var(--g-blur));
+    backdrop-filter: blur(var(--g-blur));
+  }
+  /* Gradient edge: edge-top → edge-bottom, drawn as a masked 1px ring. */
+  :is(.glass, .glass-thin, .glass-thick)::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(to bottom, var(--glass-edge-top), var(--glass-edge-bottom));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    pointer-events: none;
+  }
+
+  /* Solid control: used for buttons inside glass (never glass on glass). */
+  .solid {
+    background: var(--panel);
+    box-shadow:
+      inset 0 0 0 1px var(--ring),
+      0 1px 3px var(--glass-shadow);
+  }
+
+  /* Raised segment / selected item inside a container. */
+  .raised {
+    background: var(--panel);
+    box-shadow: 0 1px 3px var(--glass-shadow);
+  }
+
+  /* Ink pill (PrimaryPill). */
+  .ink {
+    background: var(--fg);
+    color: var(--on-fg);
+    box-shadow:
+      inset 0 1px 0 #ffffff33,
+      0 4px 12px var(--glass-shadow);
+  }
+
+  /* Press feedback. */
+  .press {
+    transition: transform 120ms var(--ease-out);
+  }
+  .press:active:not(:disabled) {
+    transform: scale(0.96);
+  }
+
+  /* Extends the hit area of small controls to at least 40px. */
+  .hit {
+    position: relative;
+  }
+  .hit::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+  }
+}
+
+/* Solid content surface. A utility so it can take variants (lg:surface). */
+@utility surface {
+  background: var(--surface);
+  box-shadow:
+    inset 0 0 0 1px var(--ring),
+    0 1px 2px var(--shadow-a),
+    0 10px 30px var(--glass-shadow);
+}
+
+@layer utilities {
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .press {
+    transition: none;
+  }
+  .press:active:not(:disabled) {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass,
+  .glass-thin,
+  .glass-thick {
+    background: var(--panel);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .glass-on-hero {
+    background: var(--hero-d);
+  }
+  .surface {
+    background: var(--panel);
+  }
+}
+
+@media (prefers-contrast: more) {
+  .glass,
+  .glass-thin,
+  .glass-thick {
+    background: var(--panel);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .glass-on-hero {
+    background: var(--hero-d);
+  }
+  :is(.glass, .glass-thin, .glass-thick)::before {
+    background: var(--strong);
+  }
+  .surface,
+  .solid {
+    background: var(--panel);
+    box-shadow: inset 0 0 0 1px var(--strong);
+  }
+}
